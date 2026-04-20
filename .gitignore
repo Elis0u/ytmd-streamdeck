@@ -1,0 +1,11 @@
+# Node.js
+node_modules/
+bin/
+*.log
+.env
+
+# Stream Deck files
+*.sdPlugin/bin
+*.sdPlugin/logs
+
+/.vscode

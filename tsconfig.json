@@ -1,0 +1,17 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "lib": ["ES2022", "DOM"],
+        "customConditions": ["node"],
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "noImplicitOverride": true,
+        "types": ["node"]
+    },
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}

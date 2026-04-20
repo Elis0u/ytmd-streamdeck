@@ -1,0 +1,46 @@
+{
+	"Name": "YTM Desktop Controls",
+	"Version": "0.1.0.0",
+	"Author": "elis0u",
+	"Actions": [
+		{
+			"Name": "Play-pause",
+			"UUID": "com.elis0u.ytm-desktop-controls.playpause",
+			"Icon": "imgs/actions/play",
+			"Tooltip": "Displays a count, which increments by one on press.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/play",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Category": "YTM Desktop Controls",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Control YouTube Music Desktop from your Stream Deck",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 3,
+	"Software": {
+		"MinimumVersion": "7.1"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "24",
+		"Debug": "enabled"
+	},
+	"UUID": "com.elis0u.ytm-desktop-controls"
+}
