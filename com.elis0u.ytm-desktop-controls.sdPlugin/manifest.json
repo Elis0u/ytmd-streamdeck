@@ -32,6 +32,21 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Previous",
+			"UUID": "com.elis0u.ytm-desktop-controls.previous",
+			"Icon": "imgs/actions/previous",
+			"Tooltip": "Previous",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/previous",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "YTM Desktop Controls",
