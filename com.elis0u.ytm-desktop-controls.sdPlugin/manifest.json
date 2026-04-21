@@ -47,6 +47,21 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Shuffle",
+			"UUID": "com.elis0u.ytm-desktop-controls.shuffle",
+			"Icon": "imgs/actions/shuffle",
+			"Tooltip": "Shuffle",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/shuffle",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "YTM Desktop Controls",
