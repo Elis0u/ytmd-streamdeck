@@ -7,13 +7,28 @@
 			"Name": "Play-pause",
 			"UUID": "com.elis0u.ytm-desktop-controls.playpause",
 			"Icon": "imgs/actions/play",
-			"Tooltip": "Displays a count, which increments by one on press.",
+			"Tooltip": "Play or pause",
 			"Controllers": [
 				"Keypad"
 			],
 			"States": [
 				{
 					"Image": "imgs/actions/play",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Next",
+			"UUID": "com.elis0u.ytm-desktop-controls.next",
+			"Icon": "imgs/actions/next",
+			"Tooltip": "Next",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/next",
 					"TitleAlignment": "middle"
 				}
 			]
