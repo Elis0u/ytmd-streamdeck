@@ -8,12 +8,19 @@ export async function getToken(): Promise<string | undefined> {
     return settings.token;
 }
 
-export async function sendCommand(token: string, command: string): Promise<void> {
+export async function sendCommand(token: string, command: string, data?: Record<string, unknown>): Promise<void> {
     await fetch(`${BASE}/command`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": token },
-        body: JSON.stringify({ command })
+        body: JSON.stringify({ command, ...(data && { data }) })
     });
+}
+
+export async function getPlaylists(token: string): Promise<Array<{ id: string; title: string }>> {
+    const res = await fetch(`${BASE}/playlists`, {
+        headers: { "Authorization": token }
+    });
+    return res.json();
 }
 
 export async function authenticate(action: any): Promise<string | undefined> {

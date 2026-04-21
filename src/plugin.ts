@@ -1,6 +1,7 @@
 import streamDeck from "@elgato/streamdeck";
 
 import { Next } from "./actions/next";
+import { PlaylistSelector } from "./actions/playlist-selector";
 import { PlayPause } from "./actions/play-pause";
 import { Previous } from "./actions/previous";
 import { Shuffle } from "./actions/shuffle";
@@ -13,6 +14,7 @@ streamDeck.actions.registerAction(new PlayPause());
 streamDeck.actions.registerAction(new Next());
 streamDeck.actions.registerAction(new Previous());
 streamDeck.actions.registerAction(new Shuffle());
+streamDeck.actions.registerAction(new PlaylistSelector());
 
 // Finally, connect to the Stream Deck.
 streamDeck.connect();

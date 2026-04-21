@@ -62,6 +62,22 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Playlist",
+			"UUID": "com.elis0u.ytm-desktop-controls.playlist-selector",
+			"Icon": "imgs/actions/shuffle",
+			"Tooltip": "Launch a playlist",
+			"PropertyInspectorPath": "ui/playlist-selector.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/shuffle",
+					"TitleAlignment": "middle"
+				}
+			]
 		}
 	],
 	"Category": "YTM Desktop Controls",
