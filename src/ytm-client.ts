@@ -23,6 +23,24 @@ export async function getPlaylists(token: string): Promise<Array<{ id: string; t
     return res.json();
 }
 
+export async function getState(token: string): Promise<any> {
+    const res = await fetch(`${BASE}/state`, {
+        headers: { "Authorization": token }
+    });
+    return res.json();
+}
+
+export async function imageToBase64(imageUrl: string): Promise<string> {
+    try {
+        const res = await fetch(imageUrl);
+        const buffer = await res.arrayBuffer();
+        const base64 = Buffer.from(buffer).toString("base64");
+        return `data:image/jpeg;base64,${base64}`;
+    } catch (error) {
+        return "";
+    }
+}
+
 export async function authenticate(action: any): Promise<string | undefined> {
     await action.setTitle("auth...");
     const codeRes = await fetch(`${BASE}/auth/requestcode`, {

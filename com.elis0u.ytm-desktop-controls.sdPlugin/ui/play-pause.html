@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Play / Pause</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1d1d1d;
+            color: #d8d8d8;
+            padding: 12px;
+        }
+
+        .info {
+            font-size: 11px;
+            color: #9e9e9e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .setting {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: #9e9e9e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        select {
+            width: 100%;
+            padding: 7px 8px;
+            border-radius: 3px;
+            border: 1px solid #3a3a3a;
+            background: #2a2a2a;
+            color: #d8d8d8;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #5865f2;
+        }
+
+        button {
+            width: 100%;
+            padding: 7px;
+            margin-top: 4px;
+            border-radius: 3px;
+            border: 1px solid #3a3a3a;
+            background: #2a2a2a;
+            color: #9e9e9e;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #333;
+            color: #d8d8d8;
+        }
+
+        #status {
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
+            min-height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        Si aucune musique n'est chargée dans YTM Desktop, le bouton lancera automatiquement cette playlist.
+    </div>
+    <div class="setting">
+        <label for="playlist-select">Playlist de démarrage</label>
+        <select id="playlist-select">
+            <option value="">-- Chargement... --</option>
+        </select>
+    </div>
+    <button id="refresh-btn">Rafraîchir les playlists</button>
+    <div id="status"></div>
+
+    <script>
+        var websocket = null;
+        var uuid = null;
+        var currentPlaylistId = null;
+
+        function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo) {
+            uuid = inUUID;
+            websocket = new WebSocket("ws://127.0.0.1:" + inPort);
+
+            websocket.onopen = function () {
+                websocket.send(JSON.stringify({ event: inRegisterEvent, uuid: inUUID }));
+                websocket.send(JSON.stringify({ event: "getSettings", context: uuid }));
+            };
+
+            websocket.onmessage = function (evt) {
+                var msg = JSON.parse(evt.data);
+
+                if (msg.event === "didReceiveSettings") {
+                    var settings = msg.payload.settings;
+                    currentPlaylistId = settings.fallbackPlaylistId || null;
+
+                    var select = document.getElementById("playlist-select");
+                    if (select.options.length > 1 && currentPlaylistId) {
+                        select.value = currentPlaylistId;
+                    }
+                }
+
+                if (msg.event === "sendToPropertyInspector") {
+                    var payload = msg.payload;
+                    if (payload.playlists) {
+                        populateSelect(payload.playlists);
+                        setStatus("");
+                    }
+                }
+            };
+        }
+
+        function populateSelect(playlists) {
+            var select = document.getElementById("playlist-select");
+            select.innerHTML = '<option value="">-- Aucune (désactivé) --</option>';
+
+            playlists.forEach(function (p) {
+                var opt = document.createElement("option");
+                opt.value = p.id;
+                opt.textContent = p.title;
+                if (p.id === currentPlaylistId) opt.selected = true;
+                select.appendChild(opt);
+            });
+        }
+
+        function setStatus(msg) {
+            document.getElementById("status").textContent = msg;
+        }
+
+        document.getElementById("playlist-select").addEventListener("change", function (e) {
+            var select = e.target;
+            var playlistId = select.value;
+            var playlistTitle = playlistId
+                ? select.options[select.selectedIndex].text
+                : "";
+
+            currentPlaylistId = playlistId || null;
+
+            websocket.send(JSON.stringify({
+                event: "setSettings",
+                context: uuid,
+                payload: { fallbackPlaylistId: playlistId, fallbackPlaylistTitle: playlistTitle }
+            }));
+        });
+
+        document.getElementById("refresh-btn").addEventListener("click", function () {
+            setStatus("Chargement...");
+            websocket.send(JSON.stringify({
+                event: "sendToPlugin",
+                context: uuid,
+                payload: { event: "refreshPlaylists" }
+            }));
+        });
+    </script>
+</body>
+</html>

@@ -8,6 +8,7 @@
 			"UUID": "com.elis0u.ytm-desktop-controls.playpause",
 			"Icon": "imgs/actions/play",
 			"Tooltip": "Play or pause",
+			"PropertyInspectorPath": "ui/play-pause.html",
 			"Controllers": [
 				"Keypad"
 			],
@@ -75,6 +76,20 @@
 			"States": [
 				{
 					"Image": "imgs/actions/shuffle",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Now Playing",
+			"UUID": "com.elis0u.ytm-desktop-controls.now-playing",
+			"Icon": "imgs/actions/play",
+			"Tooltip": "Now playing - Click to play/pause",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
 					"TitleAlignment": "middle"
 				}
 			]
