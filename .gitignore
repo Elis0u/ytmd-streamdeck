@@ -9,3 +9,4 @@ bin/
 *.sdPlugin/logs
 
 /.vscode
+/.claude
